@@ -2,7 +2,7 @@
 
 **NOTE: The repository is currently under constuction.**
 
-An advanced build script experience to build [ITGMania](https://itgmania.com) from source code. High perfomance and optimized with improvements for PCs also ported to video games consoles.
+An advanced build script experience to build [ITGMania](https://itgmania.com) from source code. High perfomance and optimized with improvements for PCs and consoles.
 
 **Origin:**
 ITGmania is a fork of [StepMania 5.1](https://github.com/stepmania/stepmania/tree/5_1-new), an advanced cross-platform rhythm game for home and arcade use.
@@ -30,10 +30,10 @@ Coming Soon!
 - [EvocaitArt](https://twitter.com/EvocaitArt) (Enchantment NoteSkin)
 - [jenx](https://www.amarion.net/) (Fast Profile Switching)
 - [LightningXCE](https://twitter.com/lightningxce) (Cyber NoteSkin)
-- [MegaSphere](https://github.com/Pete-Lawrence/Peters-Noteskins) (Note/Rainbow/Vivid NoteSkins)
+- [SchneiderAFX](https://github.com/SchneiderAFX/Schneiders-DDR-HD-Noteskins) (Note/Rainbow/Vivid NoteSkins for DDR)
 - [StepMania 5](Docs/credits_SM5.txt)
 - [Old StepMania Team](Docs/credits_old_Stepmania_Team.txt)
 
 ## :copyright: License
 
-SM5-Build was licensed under the [MIT License](https://opensource.org/license/mit).
+This repo licensed under the [MIT License](https://opensource.org/license/mit).
