@@ -1,5 +1,10 @@
 name: Build
 
+on:
+  push:
+    branches:
+      - main
+
 env:
   TZ: Asia/Manila
 
