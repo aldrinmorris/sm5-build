@@ -20,9 +20,11 @@ if [ $1 == "windows" ]; then
         NM=/clangarm64/bin/llvm-nm
         RANLIB=/clangarm64/bin/llvm-ranlib
 	WINDRES=/clangarm64/bin/llvm-windres
-        LD=/clangarm64/bin/ld,lld
+        LD=/clangarm64/bin/ld.lld
     fi
 fi
+
+chmod +x $CC $CXX $AR $AS $NN $RANLIB $WINDRES $LD
 
 git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
 pushd ${_sources_dir}/ffmpeg

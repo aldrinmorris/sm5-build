@@ -11,6 +11,7 @@ env:
 jobs:
   windows:
     strategy:
+      fail-fast: false
       matrix:
         config: [
           { sys: clang64, arch: x86_64 },
