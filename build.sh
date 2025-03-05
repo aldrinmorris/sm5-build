@@ -26,6 +26,8 @@ if [ $1 == "windows" ]; then
     fi
 fi
 
+$CC --version
+
 git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
 cd ${_sources_dir}/ffmpeg
 ./configure \
