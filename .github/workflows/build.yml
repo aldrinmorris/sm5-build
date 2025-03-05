@@ -13,10 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        config: [
-          { sys: clang64, arch: x86_64 },
-          { sys: clangarm64, arch: aarch64 }
-        ]
+        config:
+          [
+            { sys: CLANG64, arch: x86_64 },
+            { sys: CLANGARM64, arch: aarch64 }
+          ]
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -25,9 +26,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           update: true
-          install: >-
-            bash
-            git
+          install: wget git subversion
           msystem: ${{ matrix.config.sys }}
           cache: true
       - name: Setup
