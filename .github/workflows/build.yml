@@ -1,3 +1,4 @@
+
 name: Build
 
 on:
@@ -15,8 +16,8 @@ jobs:
       matrix:
         config:
           [
-            { sys: CLANG64, arch: x86_64, target: amd64 },
-            { sys: CLANGARM64, arch: aarch64, target: amd64_arm64 }
+            { arch: x86_64, target: amd64 },
+            { arch: aarch64, target: amd64_arm64 }
           ]
     runs-on: windows-latest
     steps:
@@ -37,5 +38,7 @@ jobs:
         shell: msys2 {0}
         run: ./setup.sh windows ${{ matrix.config.arch }}
       - name: Build.sh
-        shell: msys2 {0}
-        run: ./build.sh windows ${{ matrix.config.arch }}
+        shell: cmd
+        run: |
+          CALL "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.config.target }}
+          msys2 -c "./build.sh windows ${{ matrix.config.arch }}"

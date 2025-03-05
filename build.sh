@@ -5,6 +5,7 @@ _build_dir=${_work_dir}/build
 
 _ffmpeg_args="$_ffmpeg_args $@"
 if [ $1 == "windows" ]; then
+    git clone 
     _ffmpeg_args="--toolchain=msvc"
     if [ $2 == "x86_64" ]; then
 	FFMPEG_ARCH=amd64
