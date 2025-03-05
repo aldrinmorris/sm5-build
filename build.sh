@@ -1,5 +1,8 @@
 #!/bin/bash -e
-if [ $1 == "windows "]; then
+_work_dir=$(pwd)
+_sources_dir=${_work_dir}/sources
+
+if [ $1 == "windows" ]; then
     if [ $2 == "x86_64" ]; then
         CC=/clang64/bin/clang
 	CXX=/clang64/bin/clang++
@@ -8,7 +11,7 @@ if [ $1 == "windows "]; then
 	NM=/clang64/bin/llvm-nm
 	RANLIB=/clang64/bin/llvm-ranlib
 	WINDRES=/clang64/bin/llvm-windres
-	LD=/clang64/bin/ld64.lld
+	LD=/clang64/bin/ld.lld
     elif [ $2 == "aarch64" ]; then
 	CC=/clangarm64/bin/clang
 	CXX=/clangarm64/bin/clang++
@@ -17,12 +20,12 @@ if [ $1 == "windows "]; then
         NM=/clangarm64/bin/llvm-nm
         RANLIB=/clangarm64/bin/llvm-ranlib
 	WINDRES=/clangarm64/bin/llvm-windres
-        LD=/clangarm64/bin/ld64.lld
+        LD=/clangarm64/bin/ld,lld
     fi
 fi
 
-git clone https://git.ffmpeg.org/ffmpeg.git
-cd ffmpeg
+git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
+pushd ${_sources_dir}/ffmpeg
 ./configure \
     --arch=$2 \
     --cc=$CC \
@@ -33,6 +36,7 @@ cd ffmpeg
     --ranlib=$RANLIB \
     --windres=$WINDRES \
     --ld=$LD \
+    --enable-cross-compile \
     --disable-autodetect \
     --disable-avdevice \
     --disable-avfilter \
@@ -55,7 +59,10 @@ cd ffmpeg
     --enable-d3d12va \
     --enable-dxva2 \
     --enable-zlib \
-    --extra-cflags="-static --static -w" \
-    --extra-cxxflags="-static --static -w" \
+    --extra-cflags="-static --static -g0 -O3 -w" \
+    --extra-cxxflags="-static --static -g0 -O3 -w" \
     --extra-ldflags="-s -static --static" \
     --prefix=/
+make
+make install-strip
+popd
