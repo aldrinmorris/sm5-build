@@ -12,6 +12,7 @@ if [ $1 == "windows" ]; then
 	RANLIB=/clang64/bin/llvm-ranlib
 	WINDRES=/clang64/bin/llvm-windres
 	LD=/clang64/bin/ld.lld
+	FFMPEG_ARCH=x86
     elif [ $2 == "aarch64" ]; then
 	CC=/clangarm64/bin/clang
 	CXX=/clangarm64/bin/clang++
@@ -21,14 +22,15 @@ if [ $1 == "windows" ]; then
         RANLIB=/clangarm64/bin/llvm-ranlib
 	WINDRES=/clangarm64/bin/llvm-windres
         LD=/clangarm64/bin/ld.lld
+	FFMPEG_ARCH=arm64
     fi
 fi
 
 git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
 cd ${_sources_dir}/ffmpeg
 ./configure \
-    --arch=$2 \
-    --target-os=mingw32 \
+    --target-os=win32 \
+    --arch=$FFMPEG_ARCH \
     --enable-cross-compile \
     --cc=$CC \
     --cxx=$CXX \
