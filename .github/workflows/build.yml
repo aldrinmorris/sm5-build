@@ -26,7 +26,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           update: true
-          install: wget git subversion
+          install: base-devel wget git subversion
           msystem: ${{ matrix.config.sys }}
           cache: true
       - name: Setup
