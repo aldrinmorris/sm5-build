@@ -37,6 +37,5 @@ jobs:
         shell: msys2 {0}
         run: ./setup.sh windows ${{ matrix.config.arch }}
       - name: Build.sh
-        shell: msyz2 {0}
-        run: |
-          msys2 -c "./build.sh windows ${{ matrix.config.arch }}"
+        shell: msys2 {0}
+        run: ./build.sh windows ${{ matrix.config.arch }}
