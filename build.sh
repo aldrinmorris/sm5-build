@@ -11,13 +11,20 @@ if [ $1 == "windows" ]; then
     elif [ $2 == "aarch64" ]; then
 	FFMPEG_ARCH=arm64
     fi
+    _ffmpeg_args+=" \
+        --arch=${FFMPEG_ARCH} \
+	--enable-cross-compile \
+	--target-os=win32 \
+	--enable-w32threads \
+	--enable-bzlib \
+	--enable-d3d11va \
+	--enable-d3d12va \
+	--enable-dxva2"
 fi
 
 git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
 cd ${_sources_dir}/ffmpeg
 ./configure \
-    ${_ffmpeg_args} \
-    --arch=$FFMPEG_ARCH \
     --disable-autodetect \
     --disable-avdevice \
     --disable-avfilter \
@@ -34,15 +41,12 @@ cd ${_sources_dir}/ffmpeg
     --enable-gpl \
     --enable-nonfree \
     --enable-version3 \
-    --enable-w32threads \
     --enable-bzlib \
-    --enable-d3d11va \
-    --enable-d3d12va \
-    --enable-dxva2 \
     --enable-zlib \
     --extra-cflags="-static --static -g0 -O2 -w" \
     --extra-cxxflags="-static --static -g0 -O2 -w" \
     --extra-ldflags="-s -static --static" \
-    --prefix=/
+    --prefix=/ \
+    ${_ffmpeg_args}
 make
 make DESTDIR=${_build_dir} install
