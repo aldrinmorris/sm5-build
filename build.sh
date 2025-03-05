@@ -4,7 +4,6 @@ _sources_dir=${_work_dir}/sources
 
 if [ $1 == "windows" ]; then
     if [ $2 == "x86_64" ]; then
-	CROSS_COMPILE=/clang64/bin/x86_64-w64-mingw32-
         CC=/clang64/bin/clang
 	CXX=/clang64/bin/clang++
 	AR=/clang64/bin/llvm-ar
@@ -14,7 +13,6 @@ if [ $1 == "windows" ]; then
 	WINDRES=/clang64/bin/llvm-windres
 	LD=/clang64/bin/ld.lld
     elif [ $2 == "aarch64" ]; then
-	CROSS_COMPILE=/clangarm64/bin/aarch64-w64-mingw32-
 	CC=/clangarm64/bin/clang
 	CXX=/clangarm64/bin/clang++
 	AR=/clangarm64/bin/llvm-ar
@@ -31,7 +29,7 @@ cd ${_sources_dir}/ffmpeg
 ./configure \
     --arch=$2 \
     --target-os=mingw32 \
-    --cross-prefix=$CROSS_COMPILE
+    --enable-cross-compile \
     --cc=$CC \
     --cxx=$CXX \
     --ar=$AR \
