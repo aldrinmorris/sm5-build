@@ -15,23 +15,30 @@ jobs:
       matrix:
         config:
           [
-            { sys: CLANG64, arch: x86_64 },
-            { sys: CLANGARM64, arch: aarch64 }
+            { sys: CLANG64, arch: x86_64, target: amd64 },
+            { sys: CLANGARM64, arch: aarch64, target: arm64 }
           ]
     runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup MSVC Output
+        shell: bash
+        id: msvc
+        run: |
+          echo "installPath=$(vswhere -all -legacy -property installationPath)" >> $GITHUB_OUTPUT
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         with:
           update: true
-          install: base-devel wget git subversion
-          msystem: ${{ matrix.config.sys }}
-          cache: true
+          install: >-
+            diffutils make zip pkgconf yasm nasm libtool
+            bison automake autoconf wget git subversion
       - name: Setup
         shell: msys2 {0}
         run: ./setup.sh windows ${{ matrix.config.arch }}
       - name: Build.sh
-        shell: msys2 {0}
-        run: ./build.sh windows ${{ matrix.config.arch }}
+        shell: cmd
+        run: |
+          CALL "${{ steps.msvc.outputs.installPath}}\VC\Auxiliary\Build\vcvarsall.bat }}" ${{ matrix.config.target }}
+          msys -c "./build.sh windows ${{ matrix.config.arch }}"
