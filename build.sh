@@ -4,27 +4,27 @@ _sources_dir=${_work_dir}/sources
 
 if [ $1 == "windows" ]; then
     if [ $2 == "x86_64" ]; then
-        CC=/clang64/bin/clang
-	CXX=/clang64/bin/clang++
-	AR=/clang64/bin/llvm-ar
-	AS=/clang64/bin/llvm-as
-	NM=/clang64/bin/llvm-nm
-	RANLIB=/clang64/bin/llvm-ranlib
-	WINDRES=/clang64/bin/llvm-windres
-	LD=/clang64/bin/ld.lld
+        CC=/clang64/bin/clang.exe
+	CXX=/clang64/bin/clang++.exe
+	AR=/clang64/bin/llvm-ar.exe
+	AS=/clang64/bin/llvm-as.exe
+	NM=/clang64/bin/llvm-nm.exe
+	RANLIB=/clang64/bin/llvm-ranlib.exe
+	WINDRES=/clang64/bin/llvm-windres.exe
+	LD=/clang64/bin/ld.lld.exe
     elif [ $2 == "aarch64" ]; then
-	CC=/clangarm64/bin/clang
-	CXX=/clangarm64/bin/clang++
-	AR=/clangarm64/bin/llvm-ar
-        AS=/clangarm64/bin/llvm-as
-        NM=/clangarm64/bin/llvm-nm
-        RANLIB=/clangarm64/bin/llvm-ranlib
-	WINDRES=/clangarm64/bin/llvm-windres
-        LD=/clangarm64/bin/ld.lld
+	CC=/clangarm64/bin/clang.exe
+	CXX=/clangarm64/bin/clang++.exe
+	AR=/clangarm64/bin/llvm-ar.exe
+        AS=/clangarm64/bin/llvm-as.exe
+        NM=/clangarm64/bin/llvm-nm.exe
+        RANLIB=/clangarm64/bin/llvm-ranlib.exe
+	WINDRES=/clangarm64/bin/llvm-windres.exe
+        LD=/clangarm64/bin/ld.lld.exe
     fi
 fi
 
-chmod +x $CC $CXX $AR $AS $NN $RANLIB $WINDRES $LD
+chmod +x $CC $CXX $AR $AS $NM $RANLIB $WINDRES $LD
 
 git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
 pushd ${_sources_dir}/ffmpeg
