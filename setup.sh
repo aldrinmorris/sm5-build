@@ -1,8 +1,8 @@
 #!/bin/bash
 if [ $1 == "windows" ]; then
-    _pkgs=(
-        llvm clang gcc-compat nasm freetype frei0r-plugins
-    )
+    # Main runtime
+    _pkgs=(git llvm clang nasm pkg-config)
+    # MSY2 dependencies install
     for pkg in ${_pkgs}; do
         pacman -Sy --noconfirm mingw-w64-clang-$2-${_pkgs}
     done

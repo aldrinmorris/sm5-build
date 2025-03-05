@@ -57,4 +57,5 @@ cd ffmpeg
     --enable-zlib \
     --extra-cflags="-static --static -w" \
     --extra-cxxflags="-static --static -w" \
-    --extra-ldflags="-s -static --static"
+    --extra-ldflags="-s -static --static" \
+    --prefix=/
