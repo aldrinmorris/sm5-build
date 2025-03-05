@@ -6,5 +6,5 @@ if [ $1 == "windows" ]; then
     for pkg in ${_pkgs}; do
         pacman -Syuu --noconfirm mingw-w64-clang-$2-${_pkgs}
     done
-    clang
+    ls /
 fi
