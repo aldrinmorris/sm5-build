@@ -1,6 +1,7 @@
 #!/bin/bash -e
 _work_dir=$(pwd)
 _sources_dir=${_work_dir}/sources
+_build_dir=${_work_dir}/build
 
 _ffmpeg_args="$_ffmpeg_args $@"
 if [ $1 == "windows" ]; then
@@ -12,11 +13,12 @@ if [ $1 == "windows" ]; then
     fi
 fi
 
-cl.exe
+cl
 
 git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
 cd ${_sources_dir}/ffmpeg
 ./configure \
+    ${_ffmpeg_args} \
     --arch=$FFMPEG_ARCH \
     --disable-autodetect \
     --disable-avdevice \
@@ -43,6 +45,6 @@ cd ${_sources_dir}/ffmpeg
     --extra-cflags="-static --static -g0 -O2 -w" \
     --extra-cxxflags="-static --static -g0 -O2 -w" \
     --extra-ldflags="-s -static --static" \
-    --prefix=/ ${_ffmpeg_args}
+    --prefix=/
 make
-make install-strip
+make DESTDIR=${_build_dir} install
