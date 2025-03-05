@@ -2,7 +2,9 @@
 _work_dir=$(pwd)
 _sources_dir=${_work_dir}/sources
 
+_ffmpeg_args="$_ffmpeg_args $@"
 if [ $1 == "windows" ]; then
+    _ffmpeg_args="--toolchain=msvc"
     if [ $2 == "x86_64" ]; then
 	FFMPEG_ARCH=amd64
     elif [ $2 == "aarch64" ]; then
@@ -10,12 +12,9 @@ if [ $1 == "windows" ]; then
     fi
 fi
 
-$CC --version
-
 git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
 cd ${_sources_dir}/ffmpeg
 ./configure \
-    --toolchain=msvc \
     --arch=$FFMPEG_ARCH \
     --disable-autodetect \
     --disable-avdevice \
@@ -42,6 +41,6 @@ cd ${_sources_dir}/ffmpeg
     --extra-cflags="-static --static -g0 -O2 -w" \
     --extra-cxxflags="-static --static -g0 -O2 -w" \
     --extra-ldflags="-s -static --static" \
-    --prefix=/
+    --prefix=/ ${_ffmpeg_args}
 make
 make install-strip
