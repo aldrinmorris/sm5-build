@@ -41,4 +41,5 @@ jobs:
         shell: cmd
         run: |
           CALL "${{ steps.msvc.outputs.installPath }}\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.config.target }}
+          cl
           msys2 -c "./build.sh windows ${{ matrix.config.arch }}"
