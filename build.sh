@@ -21,8 +21,8 @@ if [ $1 == "windows" ]; then
 	--target-os=win32 \
 	--cc=clang-cl \
         --cxx=clang-cl \
-        --extra-cflags=\"/std:c99 /MT /w\" \
-        --extra-cxxflags=\"/std:c99 /MT /w\" \
+        --extra-cflags=/std:c99 \
+        --extra-cxxflags=/std:c99 \
 	--enable-w32threads \
 	--enable-bzlib \
 	--enable-d3d11va \
