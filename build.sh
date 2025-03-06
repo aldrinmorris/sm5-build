@@ -16,6 +16,9 @@ if [ $1 == "windows" ]; then
 	eval "$(${_sources_dir}/vcvars-bash/vcvarsall.sh x64_arm64)"
     fi
     _ffmpeg_args+=" \
+	--cc=clang-cl \
+	--cxx=clang-cl \
+	`for i in c{,xx}; do echo -ne --extra-${i}flags='"/std:c99 /MT /w" '; done` \
         --arch=${FFMPEG_ARCH} \
 	--enable-cross-compile \
 	--target-os=win32 \
@@ -25,8 +28,6 @@ if [ $1 == "windows" ]; then
 	--enable-d3d12va \
 	--enable-dxva2"
 fi
-
-cl
 
 git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
 cd ${_sources_dir}/ffmpeg
@@ -49,9 +50,6 @@ cd ${_sources_dir}/ffmpeg
     --enable-version3 \
     --enable-bzlib \
     --enable-zlib \
-    --extra-cflags="-static --static -g0 -O2 -w" \
-    --extra-cxxflags="-static --static -g0 -O2 -w" \
-    --extra-ldflags="-s -static --static" \
     --prefix=/ \
     ${_ffmpeg_args}
 make
