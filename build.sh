@@ -16,12 +16,13 @@ if [ $1 == "windows" ]; then
 	eval "$(${_sources_dir}/vcvars-bash/vcvarsall.sh x64_arm64)"
     fi
     _ffmpeg_args+=" \
-	--cc=clang-cl \
-	--cxx=clang-cl \
-	`for i in c{,xx}; do echo -ne --extra-${i}flags='"/std:c99 /MT /w" '; done` \
         --arch=${FFMPEG_ARCH} \
 	--enable-cross-compile \
 	--target-os=win32 \
+	--cc=clang-cl \
+        --cxx=clang-cl \
+        --extra-cflags=\"/std:c99 /MT /w\" \
+        --extra-cxxflags=\"/std:c99 /MT /w\" \
 	--enable-w32threads \
 	--enable-bzlib \
 	--enable-d3d11va \
