@@ -5,12 +5,15 @@ _build_dir=${_work_dir}/build
 
 _ffmpeg_args="$_ffmpeg_args $@"
 if [ $1 == "windows" ]; then
-    git clone 
+    echo "Exporting envs from vcvars"
+    git clone https://github.com/nathan818fr/vcvars-bash.git ${_sources_dir}/vcvars-bash
     _ffmpeg_args="--toolchain=msvc"
     if [ $2 == "x86_64" ]; then
 	FFMPEG_ARCH=amd64
+	eval "$(${_sources_dir}/vcvars-bash/vcvarsall.sh x64)"
     elif [ $2 == "aarch64" ]; then
 	FFMPEG_ARCH=arm64
+	eval "$(${_sources_dir}/vcvars-bash/vcvarsall.sh x64_arm64)"
     fi
     _ffmpeg_args+=" \
         --arch=${FFMPEG_ARCH} \
@@ -22,6 +25,8 @@ if [ $1 == "windows" ]; then
 	--enable-d3d12va \
 	--enable-dxva2"
 fi
+
+cl
 
 git clone https://git.ffmpeg.org/ffmpeg.git ${_sources_dir}/ffmpeg
 cd ${_sources_dir}/ffmpeg

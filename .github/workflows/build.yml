@@ -30,15 +30,9 @@ jobs:
           install: >-
             diffutils make zip pkgconf yasm nasm libtool
             bison automake autoconf wget git subversion
-      - name: Set up MSVC Developer Command Prompt
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: ${{ matrix.config.target }}
       - name: Setup dependencies
         shell: msys2 {0}
         run: ./setup.sh windows ${{ matrix.config.arch }}
       - name: Build.sh
-        shell: cmd
-        run: |
-          CALL "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.config.target }}
-          msys2 -c "./build.sh windows ${{ matrix.config.arch }}"
+        shell: msys2 {0}
+        run: ./build.sh windows ${{ matrix.config.arch }}
